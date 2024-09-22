@@ -1196,10 +1196,8 @@ script = ExtResource("1_rlrbm")
 
 [node name="animations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_toh0h")
-animation = &"climbLedge"
+animation = &"wallLand"
 autoplay = "idle"
-frame = 4
-frame_progress = 1.0
 
 [node name="bodyCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_887x0")

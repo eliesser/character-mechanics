@@ -113,11 +113,11 @@ func _physics_process(delta: float) -> void:
 		State.jumpUp:
 			player.velocity.x = Input.get_axis("ui_left", "ui_right") * SPEED_RUN
 			player.playAnimation(ANIMATIONS[State.jumpUp])
-			canDobleJump = true
 			
 			if player.is_on_floor() and player.velocity.y == 0:
 				player.velocity.y = JUMP_VELOCITY
 			elif player.velocity.y > 0:
+				canDobleJump = true
 				currentState = State.jumpTop
 			
 		State.jumpTop:
@@ -132,11 +132,14 @@ func _physics_process(delta: float) -> void:
 			player.playAnimation(ANIMATIONS[State.jumpDown])
 			
 			if player.is_on_floor() and player.velocity.y == 0:
-				currentState = State.land
+				if player.velocity.x == 0:
+					currentState = State.land
+				else:
+					currentState = State.run
 			elif not player.is_on_floor() and Input.is_action_pressed("jump") and canDobleJump:
 				currentState = State.airSpin
 			elif rayCastStuckOnWall.is_colliding():
-				currentState = State.wallSlide
+				#currentState = State.wallSlide
 				if rayCastStuckOnWall.get_collider().is_in_group("groupWallLand"):
 					currentState = State.wallLand
 				elif rayCastStuckOnWall.get_collider().is_in_group("groupClimbLedge"):
@@ -151,7 +154,10 @@ func _physics_process(delta: float) -> void:
 				canDobleJump = false
 			
 			if player.is_on_floor() and player.velocity.y == 0:
-				currentState = State.land
+				if player.velocity.x == 0:
+					currentState = State.land
+				else:
+					currentState = State.run
 			elif rayCastStuckOnWall.is_colliding():
 				if rayCastStuckOnWall.get_collider().is_in_group("groupWallLand"):
 					currentState = State.wallLand
@@ -172,6 +178,7 @@ func _physics_process(delta: float) -> void:
 				gravity = GRAVITY
 				timerRayCastStuckOnWall.start()
 				canDobleJump = false
+				player.velocity.y = JUMP_VELOCITY
 				currentState = State.jumpUp
 			
 			elif Input.is_action_pressed("ui_down"):
@@ -180,10 +187,10 @@ func _physics_process(delta: float) -> void:
 				timerRayCastStuckOnWall.start()
 				currentState = State.jumpDown
 			
-			elif Input.is_action_pressed("ui_up"):
-				rayCastStuckOnWall.RAY_CAST_DIMENSION = 0
-				timerRayCastStuckOnWall.start()
-				currentState = State.climbLedge
+			#elif Input.is_action_pressed("ui_up"):
+				#rayCastStuckOnWall.RAY_CAST_DIMENSION = 0
+				#timerRayCastStuckOnWall.start()
+				#currentState = State.climbLedge
 			
 		State.climbLedge:
 			player.playAnimation(ANIMATIONS[State.climbLedge])
