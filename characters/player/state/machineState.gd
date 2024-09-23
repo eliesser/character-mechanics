@@ -139,11 +139,12 @@ func _physics_process(delta: float) -> void:
 			elif not player.is_on_floor() and Input.is_action_pressed("jump") and canDobleJump:
 				currentState = State.airSpin
 			elif rayCastStuckOnWall.is_colliding():
-				#currentState = State.wallSlide
 				if rayCastStuckOnWall.get_collider().is_in_group("groupWallLand"):
 					currentState = State.wallLand
 				elif rayCastStuckOnWall.get_collider().is_in_group("groupClimbLedge"):
 					currentState = State.wallLand
+				else:
+					currentState = State.wallSlide
 			
 		State.airSpin:
 			player.velocity.x = Input.get_axis("ui_left", "ui_right") * SPEED_RUN
@@ -169,9 +170,10 @@ func _physics_process(delta: float) -> void:
 			player.playAnimation(ANIMATIONS[State.land])
 			
 		State.wallLand:
-			player.playAnimation(ANIMATIONS[State.wallLand])
-			gravity = 0
-			player.velocity.y = 0
+			if gravity > 0:
+				player.playAnimation(ANIMATIONS[State.wallLand])
+				gravity = 0
+				player.velocity.y = 0
 			
 			if Input.is_action_pressed("jump"):
 				rayCastStuckOnWall.RAY_CAST_DIMENSION = 0
@@ -197,12 +199,17 @@ func _physics_process(delta: float) -> void:
 			player.velocity.y = -110
 			
 		State.wallSlide:
-			player.playAnimation(ANIMATIONS[State.wallSlide])
-			gravity = 1
-			
-			if player.is_on_floor():
-				currentState = State.land
-				gravity = GRAVITY
+			if rayCastStuckOnWall.is_colliding():
+				if rayCastStuckOnWall.get_collider().is_in_group("groupWallLand"):
+					currentState = State.wallLand
+				elif rayCastStuckOnWall.get_collider().is_in_group("groupClimbLedge"):
+					currentState = State.wallLand
+				elif player.is_on_floor():
+					currentState = State.land
+					gravity = GRAVITY
+				else:
+					player.playAnimation(ANIMATIONS[State.wallSlide])
+					gravity = 1
 	
 	setGravity(delta)
 	

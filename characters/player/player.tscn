@@ -1169,7 +1169,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"wallLand",
-"speed": 5.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1198,6 +1198,8 @@ script = ExtResource("1_rlrbm")
 sprite_frames = SubResource("SpriteFrames_toh0h")
 animation = &"wallLand"
 autoplay = "idle"
+frame = 5
+frame_progress = 1.0
 
 [node name="bodyCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_887x0")
