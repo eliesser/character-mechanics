@@ -8,6 +8,7 @@ func onPhysicsProcess(delta: float) -> void:
 		player.playAnimation(player.animation.wallLand)
 		player.gravity = 0
 		player.velocity.y = 0
+		player.countJump = 0
 	
 	setGravity(delta)
 	
@@ -18,7 +19,6 @@ func onInput(_event) -> void:
 		rayCastStuckOnWall.RAY_CAST_DIMENSION = 0
 		player.gravity = player.GRAVITY
 		timerRayCastStuckOnWall.start()
-		player.canDobleJump = false
 		player.velocity.y = player.JUMP_VELOCITY
 		stateMachine.changeTo(player.states.jumpUp)
 	elif Input.is_action_pressed("ui_down"):

@@ -24,5 +24,7 @@ func onPhysicsProcess(delta: float) -> void:
 	player.move_and_slide()
 
 func onInput(_event) -> void:
-	if not player.is_on_floor() and Input.is_action_pressed("jump") and player.canDobleJump:
+	if Input.is_action_pressed("jump") and player.countJump == 0:
+		stateMachine.changeTo(player.states.jumpUp)
+	if not player.is_on_floor() and Input.is_action_pressed("jump") and player.countJump == 1:
 		stateMachine.changeTo(player.states.airSpin)

@@ -6,9 +6,9 @@ func onPhysicsProcess(delta: float) -> void:
 	player.velocity.x = Input.get_axis("ui_left", "ui_right") * player.SPEED_RUN
 	player.playAnimation(player.animation.airSpin)
 	
-	if player.canDobleJump:
+	if player.countJump == 1:
 		player.velocity.y = player.DOBLE_JUMP_VELOCITY
-		player.canDobleJump = false
+		player.countJump += 1
 	
 	if player.is_on_floor() and player.velocity.y == 0:
 		if player.velocity.x == 0:
@@ -20,6 +20,8 @@ func onPhysicsProcess(delta: float) -> void:
 			stateMachine.changeTo(player.states.wallLand)
 		elif rayCastStuckOnWall.get_collider().is_in_group("groupClimbLedge"):
 			stateMachine.changeTo(player.states.wallLand)
+		else:
+			stateMachine.changeTo(player.states.wallSlide)
 	
 	setGravity(delta)
 	

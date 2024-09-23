@@ -6,6 +6,7 @@ func onPhysicsProcess(delta: float) -> void:
 	
 	if not player.is_on_floor() and player.velocity.y >= 0:
 		stateMachine.changeTo(player.states.jumpTop)
+		player.countJump = 1
 	
 	setGravity(delta)
 	

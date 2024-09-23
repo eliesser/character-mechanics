@@ -11,13 +11,14 @@ func onPhysicsProcess(delta: float) -> void:
 		elif player.is_on_floor():
 			stateMachine.changeTo(player.states.land)
 			player.gravity = player.GRAVITY
-		else:
-			player.playAnimation(player.animation.wallSlide)
-			player.gravity = 1
+		#elif player.gravity != 200:
+			#player.playAnimation(player.animation.wallSlide)
+			#player.velocity.y = 0
+			#player.gravity = 200
 	else:
 		player.gravity = player.GRAVITY
 		if not player.is_on_floor():
-			stateMachine.changeTo(player.states.Top)
+			stateMachine.changeTo(player.states.jumpTop)
 		elif player.is_on_floor():
 			stateMachine.changeTo(player.states.land)
 	

@@ -751,9 +751,10 @@ sources/0 = SubResource("TileSetAtlasSource_toa3q")
 [node name="testLevel" type="Node2D"]
 
 [node name="player" parent="." instance=ExtResource("1_c6cta")]
-position = Vector2(743, 13)
+position = Vector2(376, 527)
 
 [node name="Camera2D" type="Camera2D" parent="player"]
+drag_horizontal_enabled = true
 
 [node name="terrain" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_k6j2o")

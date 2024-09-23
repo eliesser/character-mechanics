@@ -3,6 +3,7 @@ class_name PlayerStateIdle extends PlayerStateGravityBase
 func onPhysicsProcess(delta: float) -> void:
 	player.velocity.x = 0
 	player.playAnimation(player.animation.idle)
+	player.countJump = 0
 	
 	setGravity(delta)
 	

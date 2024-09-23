@@ -9,7 +9,7 @@ const SPEED_WALL:int = 150
 const GRAVITY = 980
 
 var gravity = GRAVITY
-var canDobleJump:bool = false
+var countJump:int = 0
 var states:PlayerStatesNames = PlayerStatesNames.new()
 var animation:PlayerAnimations = PlayerAnimations.new()
 
@@ -23,5 +23,5 @@ func setFlip(x:float) -> void:
 func isFlip() -> bool:
 	return $animations.scale.x < 0
 
-func playAnimation(animation:String) -> void:
-	animations.play(animation)
+func playAnimation(ani:String) -> void:
+	animations.play(ani)
