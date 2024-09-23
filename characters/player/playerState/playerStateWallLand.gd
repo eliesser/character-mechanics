@@ -21,7 +21,7 @@ func onPhysicsProcess(delta: float) -> void:
 func setGravity(delta):
 	player.velocity.y += player.gravity * delta
 
-func onInput(event) -> void:
+func onInput(_event) -> void:
 	if Input.is_action_pressed("jump"):
 		rayCastStuckOnWall.RAY_CAST_DIMENSION = 0
 		player.gravity = player.GRAVITY
@@ -37,3 +37,6 @@ func onInput(event) -> void:
 	#elif Input.is_action_pressed("ui_up"):
 		#rayCastStuckOnWall.RAY_CAST_DIMENSION = 0
 		#stateMachine.changeTo(player.states.climbLedge)
+
+func _on_timer_ray_cast_stuck_on_wall_timeout() -> void:
+	rayCastStuckOnWall.RAY_CAST_DIMENSION = 7

@@ -16,6 +16,13 @@ func onPhysicsProcess(delta: float) -> void:
 			stateMachine.changeTo(player.states.land)
 		else:
 			stateMachine.changeTo(player.states.run)
+	elif rayCastStuckOnWall.is_colliding():
+		if rayCastStuckOnWall.get_collider().is_in_group("groupWallLand"):
+			stateMachine.changeTo(player.states.wallLand)
+		elif rayCastStuckOnWall.get_collider().is_in_group("groupClimbLedge"):
+			stateMachine.changeTo(player.states.wallLand)
+		else:
+			stateMachine.changeTo(player.states.wallSlide)
 	
 	setGravity(delta)
 	
@@ -27,10 +34,3 @@ func setGravity(delta):
 func onInput(_event) -> void:
 	if not player.is_on_floor() and Input.is_action_pressed("jump") and player.canDobleJump:
 		stateMachine.changeTo(player.states.airSpin)
-	elif rayCastStuckOnWall.is_colliding():
-		if rayCastStuckOnWall.get_collider().is_in_group("groupWallLand"):
-			stateMachine.changeTo(player.states.wallLand)
-		elif rayCastStuckOnWall.get_collider().is_in_group("groupClimbLedge"):
-			stateMachine.changeTo(player.states.wallLand)
-		else:
-			stateMachine.changeTo(player.states.wallSlide)

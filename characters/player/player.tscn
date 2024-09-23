@@ -1,4 +1,4 @@
-[gd_scene load_steps=187 format=3 uid="uid://diurwl1k4677h"]
+[gd_scene load_steps=189 format=3 uid="uid://diurwl1k4677h"]
 
 [ext_resource type="Texture2D" uid="uid://dmvgc0mnx7bwm" path="res://assets/character/idle.png" id="1_7sc06"]
 [ext_resource type="Script" path="res://characters/player/player.gd" id="1_rlrbm"]
@@ -35,6 +35,8 @@
 [ext_resource type="Script" path="res://characters/player/playerState/playerStateIdleCrouch.gd" id="33_8qgv6"]
 [ext_resource type="Script" path="res://characters/player/playerState/playerStateWalkCrouch.gd" id="34_tq2my"]
 [ext_resource type="Script" path="res://characters/player/playerState/playerStateWallLand.gd" id="35_06wrd"]
+[ext_resource type="Script" path="res://characters/player/playerState/playerStateClimbLedge.gd" id="36_pw7ld"]
+[ext_resource type="Script" path="res://characters/player/playerState/playerStateWallSlide.gd" id="37_ugtj4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6spel"]
 atlas = ExtResource("8_6oqt4")
@@ -1265,4 +1267,12 @@ script = ExtResource("35_06wrd")
 rayCastStuckOnWall = NodePath("../../rayCastStuckOnWall")
 timerRayCastStuckOnWall = NodePath("../../rayCastStuckOnWall/timerRayCastStuckOnWall")
 
+[node name="playerStateClimbLedge" type="Node" parent="stateMachaine"]
+script = ExtResource("36_pw7ld")
+
+[node name="playerStateWallSlide" type="Node" parent="stateMachaine" node_paths=PackedStringArray("rayCastStuckOnWall")]
+script = ExtResource("37_ugtj4")
+rayCastStuckOnWall = NodePath("../../rayCastStuckOnWall")
+
 [connection signal="animation_finished" from="animations" to="stateMachaine" method="_on_animations_animation_finished"]
+[connection signal="timeout" from="rayCastStuckOnWall/timerRayCastStuckOnWall" to="stateMachaine/playerStateWallLand" method="_on_timer_ray_cast_stuck_on_wall_timeout"]

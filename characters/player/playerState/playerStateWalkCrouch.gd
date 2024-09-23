@@ -16,7 +16,7 @@ func onPhysicsProcess(delta: float) -> void:
 func setGravity(delta):
 	player.velocity.y += player.gravity * delta
 
-func onInput(event) -> void:
+func onInput(_event) -> void:
 	if Input.is_action_pressed("jump"):
 		stateMachine.changeTo(player.states.jumpUp)
 	elif not Input.is_action_pressed("ui_left") and not Input.is_action_pressed("ui_right"):
