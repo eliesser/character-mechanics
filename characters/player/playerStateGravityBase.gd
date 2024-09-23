@@ -1,6 +1,4 @@
-class_name PlayerStateGravityBase extends StateBase
-
-var player: Player
+class_name PlayerStateGravityBase extends PlayerStateBase
 
 func start():
 	player = controllerNode
