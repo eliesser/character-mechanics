@@ -14,6 +14,9 @@ func onPhysicsProcess(delta: float) -> void:
 		else:
 			player.playAnimation(player.animation.wallSlide)
 			player.gravity = 1
+	elif player.is_on_floor():
+		stateMachine.changeTo(player.states.land)
+		player.gravity = player.GRAVITY
 	
 	setGravity(delta)
 	

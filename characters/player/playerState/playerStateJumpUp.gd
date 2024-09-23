@@ -13,3 +13,9 @@ func onPhysicsProcess(delta: float) -> void:
 	setGravity(delta)
 	
 	player.move_and_slide()
+
+func onInput(_event) -> void:
+	if Input.is_action_pressed("jump"):
+		player.velocity.y = player.DOBLE_JUMP_VELOCITY
+		player.canDobleJump = false
+		stateMachine.changeTo(player.states.airSpin)

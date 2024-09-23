@@ -4,6 +4,9 @@ func onPhysicsProcess(delta: float) -> void:
 	player.velocity.x = Input.get_axis("ui_left", "ui_right") * player.SPEED_RUN
 	player.playAnimation(player.animation.run)
 	
+	if not player.is_on_floor() and player.velocity.y >= 0:
+		stateMachine.changeTo(player.states.jumpTop)
+	
 	setGravity(delta)
 	
 	player.move_and_slide()
