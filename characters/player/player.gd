@@ -1,9 +1,16 @@
-class_name Player
-extends CharacterBody2D
+class_name Player extends CharacterBody2D
 
 @onready var animations = $animations
 
-const RAY_CAST_DIMENSION = 7
+const JUMP_VELOCITY:int = -500
+const DOBLE_JUMP_VELOCITY:int = -400
+const SPEED_RUN:int = 300
+const SPEED_WALL:int = 150
+const GRAVITY = 980
+
+var gravity = GRAVITY
+var canDobleJump:bool = false
+var states:PlayerStatesNames = PlayerStatesNames.new()
 
 func _process(_delta: float) -> void:
 	setFlip(velocity.x)

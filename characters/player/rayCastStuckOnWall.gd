@@ -1,5 +1,4 @@
-class_name RayCastStuckOnWall
-extends RayCast2D
+class_name RayCastStuckOnWall extends RayCast2D
 
 @onready var player:Player = self.owner
 

@@ -1,5 +1,4 @@
-class_name MachineState
-extends Node
+class_name MachineState2 extends Node
 
 @export var animations: AnimatedSprite2D
 @export var rayCastStuckOnWall: RayCastStuckOnWall
@@ -38,7 +37,8 @@ const ANIMATIONS = [
 	"wallSlide"
 ]
 
-const JUMP_VELOCITY:int = -400
+const JUMP_VELOCITY:int = -500
+const DOBLE_JUMP_VELOCITY:int = -400
 const SPEED_RUN:int = 300
 const SPEED_WALL:int = 150
 const GRAVITY = 980
@@ -151,7 +151,7 @@ func _physics_process(delta: float) -> void:
 			player.playAnimation(ANIMATIONS[State.airSpin])
 			
 			if canDobleJump:
-				player.velocity.y = JUMP_VELOCITY
+				player.velocity.y = DOBLE_JUMP_VELOCITY
 				canDobleJump = false
 			
 			if player.is_on_floor() and player.velocity.y == 0:

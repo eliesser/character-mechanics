@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbaihph45pa4w"]
+
+[ext_resource type="Script" path="res://characters/player/state/stateMachaine.gd" id="1_j3utw"]
+
+[node name="StateMachaine" type="Node"]
+script = ExtResource("1_j3utw")

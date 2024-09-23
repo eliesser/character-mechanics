@@ -1,4 +1,4 @@
-[gd_scene load_steps=176 format=3 uid="uid://diurwl1k4677h"]
+[gd_scene load_steps=178 format=3 uid="uid://diurwl1k4677h"]
 
 [ext_resource type="Texture2D" uid="uid://dmvgc0mnx7bwm" path="res://assets/character/idle.png" id="1_7sc06"]
 [ext_resource type="Script" path="res://characters/player/player.gd" id="1_rlrbm"]
@@ -22,8 +22,10 @@
 [ext_resource type="Texture2D" uid="uid://cx8kg452ic82u" path="res://assets/character/climbSide.png" id="20_xh3p7"]
 [ext_resource type="Texture2D" uid="uid://b1pvpqgcl0aka" path="res://assets/character/dash.png" id="21_cenhx"]
 [ext_resource type="Texture2D" uid="uid://b4k5winq2pjva" path="res://assets/character/slide.png" id="22_ik520"]
-[ext_resource type="Script" path="res://characters/player/state/machineState.gd" id="23_137ve"]
 [ext_resource type="Script" path="res://characters/player/rayCastStuckOnWall.gd" id="24_vcph2"]
+[ext_resource type="PackedScene" uid="uid://dbaihph45pa4w" path="res://characters/player/state/stateMachaine.tscn" id="25_d51dp"]
+[ext_resource type="Script" path="res://characters/player/playerState/playerStateIdle.gd" id="25_otp83"]
+[ext_resource type="Script" path="res://characters/player/playerState/playerStateRun.gd" id="26_2bgkp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6spel"]
 atlas = ExtResource("8_6oqt4")
@@ -1198,7 +1200,6 @@ script = ExtResource("1_rlrbm")
 sprite_frames = SubResource("SpriteFrames_toh0h")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.902796
 
 [node name="bodyCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_887x0")
@@ -1214,11 +1215,11 @@ script = ExtResource("24_vcph2")
 wait_time = 0.1
 one_shot = true
 
-[node name="machineState" type="Node" parent="." node_paths=PackedStringArray("animations", "rayCastStuckOnWall", "timerRayCastStuckOnWall")]
-script = ExtResource("23_137ve")
-animations = NodePath("../animations")
-rayCastStuckOnWall = NodePath("../rayCastStuckOnWall")
-timerRayCastStuckOnWall = NodePath("../rayCastStuckOnWall/timerRayCastStuckOnWall")
+[node name="stateMachaine" parent="." node_paths=PackedStringArray("defaultState") instance=ExtResource("25_d51dp")]
+defaultState = NodePath("playerStateIdle")
 
-[connection signal="animation_finished" from="animations" to="machineState" method="_on_animations_animation_finished"]
-[connection signal="timeout" from="rayCastStuckOnWall/timerRayCastStuckOnWall" to="machineState" method="_on_timer_ray_cast_stuck_on_wall_timeout"]
+[node name="playerStateIdle" type="Node" parent="stateMachaine"]
+script = ExtResource("25_otp83")
+
+[node name="playerStateRun" type="Node" parent="stateMachaine"]
+script = ExtResource("26_2bgkp")
