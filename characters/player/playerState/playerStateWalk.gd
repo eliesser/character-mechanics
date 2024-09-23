@@ -14,9 +14,9 @@ func onPhysicsProcess(delta: float) -> void:
 func onInput(_event) -> void:
 	if Input.is_action_pressed("jump"):
 		stateMachine.changeTo(player.states.jumpUp)
-	elif not Input.is_action_pressed("ui_left") and not Input.is_action_pressed("ui_right"):
-		stateMachine.changeTo(player.states.idleCrouch)
 	elif Input.is_action_pressed("ui_down"):
 		stateMachine.changeTo(player.states.idleCrouch)
 	elif not Input.is_action_pressed("walkLeft") and not Input.is_action_pressed("walkRight"):
 		stateMachine.changeTo(player.states.idle)
+	elif not Input.is_action_pressed("walkCrouchLeft") and not Input.is_action_pressed("walkCrouchRight"):
+		stateMachine.changeTo(player.states.idleCrouch)
