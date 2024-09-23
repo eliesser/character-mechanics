@@ -1,20 +1,12 @@
-class_name PlayerStateWalk extends StateBase
-
-var player: Player
-
-func start():
-	player = controllerNode
+class_name PlayerStateWalk extends PlayerStateGravityBase
 	
 func onPhysicsProcess(delta: float) -> void:
 	player.velocity.x = Input.get_axis("ui_left", "ui_right") * player.SPEED_WALL
-	player.playAnimation('walk')
+	player.playAnimation(player.animation.walk)
 	
 	setGravity(delta)
 	
 	player.move_and_slide()
-
-func setGravity(delta):
-	player.velocity.y += player.gravity * delta
 
 func onInput(_event) -> void:
 	if Input.is_action_pressed("jump"):

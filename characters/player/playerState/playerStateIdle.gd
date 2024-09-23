@@ -1,20 +1,12 @@
-class_name PlayerStateIdle extends StateBase
-
-var player: Player
-
-func start():
-	player = controllerNode
+class_name PlayerStateIdle extends PlayerStateGravityBase
 	
 func onPhysicsProcess(delta: float) -> void:
 	player.velocity.x = 0
-	player.playAnimation('idle')
+	player.playAnimation(player.animation.idle)
 	
 	setGravity(delta)
 	
 	player.move_and_slide()
-
-func setGravity(delta):
-	player.velocity.y += player.gravity * delta
 
 func onInput(_event) -> void:
 	if Input.is_action_pressed("walkLeft") or Input.is_action_pressed("walkRight"):

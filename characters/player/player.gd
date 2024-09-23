@@ -11,6 +11,7 @@ const GRAVITY = 980
 var gravity = GRAVITY
 var canDobleJump:bool = false
 var states:PlayerStatesNames = PlayerStatesNames.new()
+var animation:PlayerAnimations = PlayerAnimations.new()
 
 func _process(_delta: float) -> void:
 	setFlip(velocity.x)

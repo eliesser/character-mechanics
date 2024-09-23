@@ -1,25 +1,17 @@
-class_name PlayerStateWallLand extends StateBase
+class_name PlayerStateWallLand extends PlayerStateGravityBase
 
 @export var rayCastStuckOnWall: RayCastStuckOnWall
 @export var timerRayCastStuckOnWall: Timer
-
-var player: Player
-
-func start():
-	player = controllerNode
 	
 func onPhysicsProcess(delta: float) -> void:
 	if player.gravity > 0:
-		player.playAnimation('wallLand')
+		player.playAnimation(player.animation.wallLand)
 		player.gravity = 0
 		player.velocity.y = 0
 	
 	setGravity(delta)
 	
 	player.move_and_slide()
-
-func setGravity(delta):
-	player.velocity.y += player.gravity * delta
 
 func onInput(_event) -> void:
 	if Input.is_action_pressed("jump"):

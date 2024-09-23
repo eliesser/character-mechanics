@@ -1,15 +1,10 @@
-class_name PlayerStateSpin extends StateBase
+class_name PlayerStateSpin extends PlayerStateGravityBase
 
 @export var rayCastStuckOnWall: RayCastStuckOnWall
 
-var player: Player
-
-func start():
-	player = controllerNode
-
 func onPhysicsProcess(delta: float) -> void:
 	player.velocity.x = Input.get_axis("ui_left", "ui_right") * player.SPEED_RUN
-	player.playAnimation('airSpin')
+	player.playAnimation(player.animation.airSpin)
 	
 	if player.canDobleJump:
 		player.velocity.y = player.DOBLE_JUMP_VELOCITY
@@ -29,6 +24,3 @@ func onPhysicsProcess(delta: float) -> void:
 	setGravity(delta)
 	
 	player.move_and_slide()
-
-func setGravity(delta):
-	player.velocity.y += player.gravity * delta

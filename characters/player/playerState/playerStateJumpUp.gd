@@ -1,13 +1,8 @@
-class_name PlayerStateJumpUp extends StateBase
-
-var player: Player
-
-func start():
-	player = controllerNode
+class_name PlayerStateJumpUp extends PlayerStateGravityBase
 
 func onPhysicsProcess(delta: float) -> void:
 	player.velocity.x = Input.get_axis("ui_left", "ui_right") * player.SPEED_RUN
-	player.playAnimation('jumpUp')
+	player.playAnimation(player.animation.jumpUp)
 	
 	if player.is_on_floor() and player.velocity.y == 0:
 		player.velocity.y = player.JUMP_VELOCITY
@@ -18,6 +13,3 @@ func onPhysicsProcess(delta: float) -> void:
 	setGravity(delta)
 	
 	player.move_and_slide()
-
-func setGravity(delta):
-	player.velocity.y += player.gravity * delta

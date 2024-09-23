@@ -1,15 +1,10 @@
-class_name PlayerStateDown extends StateBase
+class_name PlayerStateDown extends PlayerStateGravityBase
 
 @export var rayCastStuckOnWall: RayCastStuckOnWall
 
-var player: Player
-
-func start():
-	player = controllerNode
-
 func onPhysicsProcess(delta: float) -> void:
 	player.velocity.x = Input.get_axis("ui_left", "ui_right") * player.SPEED_RUN
-	player.playAnimation('jumpDown')
+	player.playAnimation(player.animation.jumpDown)
 	
 	if player.is_on_floor() and player.velocity.y == 0:
 		if player.velocity.x == 0:
@@ -27,9 +22,6 @@ func onPhysicsProcess(delta: float) -> void:
 	setGravity(delta)
 	
 	player.move_and_slide()
-
-func setGravity(delta):
-	player.velocity.y += player.gravity * delta
 
 func onInput(_event) -> void:
 	if not player.is_on_floor() and Input.is_action_pressed("jump") and player.canDobleJump:

@@ -1,20 +1,12 @@
-class_name PlayerStateIdleCrouch extends StateBase
-
-var player: Player
-
-func start():
-	player = controllerNode
+class_name PlayerStateIdleCrouch extends PlayerStateGravityBase
 	
 func onPhysicsProcess(delta: float) -> void:
 	player.velocity.x = 0
-	player.playAnimation('idleCrouch')
+	player.playAnimation(player.animation.idleCrouch)
 	
 	setGravity(delta)
 	
 	player.move_and_slide()
-
-func setGravity(delta):
-	player.velocity.y += player.gravity * delta
 
 func onInput(_event) -> void:
 	if Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right"):

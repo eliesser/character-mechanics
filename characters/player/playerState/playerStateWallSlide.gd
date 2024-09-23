@@ -1,11 +1,6 @@
-class_name PlayerStateWallSlide extends StateBase
+class_name PlayerStateWallSlide extends PlayerStateGravityBase
 
 @export var rayCastStuckOnWall: RayCastStuckOnWall
-
-var player: Player
-
-func start():
-	player = controllerNode
 
 func onPhysicsProcess(delta: float) -> void:
 	if rayCastStuckOnWall.is_colliding():
@@ -17,12 +12,9 @@ func onPhysicsProcess(delta: float) -> void:
 			stateMachine.changeTo(player.states.land)
 			player.gravity = player.GRAVITY
 		else:
-			player.playAnimation('wallSlide')
+			player.playAnimation(player.animation.wallSlide)
 			player.gravity = 1
 	
 	setGravity(delta)
 	
 	player.move_and_slide()
-
-func setGravity(delta):
-	player.velocity.y += player.gravity * delta

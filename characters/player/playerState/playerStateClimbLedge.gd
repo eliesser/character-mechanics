@@ -1,20 +1,12 @@
-class_name PlayerStateClimbLedge extends StateBase
-
-var player: Player
-
-func start():
-	player = controllerNode
+class_name PlayerStateClimbLedge extends PlayerStateGravityBase
 
 func onPhysicsProcess(delta: float) -> void:
-	player.playAnimation('climbLedge')
+	player.playAnimation(player.animation.climbLedge)
 	player.velocity.y = -110
 	
 	setGravity(delta)
 	
 	player.move_and_slide()
-
-func setGravity(delta):
-	player.velocity.y += player.gravity * delta
 	
 func onAnimationFinish(animationName:String) -> void:
 	if animationName == 'climbLedge':
