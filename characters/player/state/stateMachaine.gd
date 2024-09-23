@@ -3,6 +3,7 @@ class_name StateMachine extends Node
 @onready var controllerNode:Node = self.owner
 
 @export var defaultState: StateBase
+@export var animations: AnimatedSprite2D
 
 var currentState: StateBase = null
 
@@ -44,3 +45,6 @@ func _unhandled_input(event: InputEvent) -> void:
 func _unhandled_key_input(event: InputEvent) -> void:
 	if currentState and currentState.has_method("onUnhandledKeyInput"):
 		currentState.onUnhandledKeyInput(event)
+
+func _on_animations_animation_finished() -> void:
+	currentState.onAnimationFinish(animations.animation)

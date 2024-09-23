@@ -1,4 +1,4 @@
-[gd_scene load_steps=178 format=3 uid="uid://diurwl1k4677h"]
+[gd_scene load_steps=187 format=3 uid="uid://diurwl1k4677h"]
 
 [ext_resource type="Texture2D" uid="uid://dmvgc0mnx7bwm" path="res://assets/character/idle.png" id="1_7sc06"]
 [ext_resource type="Script" path="res://characters/player/player.gd" id="1_rlrbm"]
@@ -26,6 +26,15 @@
 [ext_resource type="PackedScene" uid="uid://dbaihph45pa4w" path="res://characters/player/state/stateMachaine.tscn" id="25_d51dp"]
 [ext_resource type="Script" path="res://characters/player/playerState/playerStateIdle.gd" id="25_otp83"]
 [ext_resource type="Script" path="res://characters/player/playerState/playerStateRun.gd" id="26_2bgkp"]
+[ext_resource type="Script" path="res://characters/player/playerState/playerStateWalk.gd" id="27_5yq8j"]
+[ext_resource type="Script" path="res://characters/player/playerState/playerStateJumpUp.gd" id="28_tnscq"]
+[ext_resource type="Script" path="res://characters/player/playerState/playerStateJumpTop.gd" id="29_qyvmb"]
+[ext_resource type="Script" path="res://characters/player/playerState/playerStateJumpDown.gd" id="30_0jao4"]
+[ext_resource type="Script" path="res://characters/player/playerState/playerStateLand.gd" id="31_knu8u"]
+[ext_resource type="Script" path="res://characters/player/playerState/playerStateAirSpin.gd" id="32_1bgex"]
+[ext_resource type="Script" path="res://characters/player/playerState/playerStateIdleCrouch.gd" id="33_8qgv6"]
+[ext_resource type="Script" path="res://characters/player/playerState/playerStateWalkCrouch.gd" id="34_tq2my"]
+[ext_resource type="Script" path="res://characters/player/playerState/playerStateWallLand.gd" id="35_06wrd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6spel"]
 atlas = ExtResource("8_6oqt4")
@@ -1215,11 +1224,45 @@ script = ExtResource("24_vcph2")
 wait_time = 0.1
 one_shot = true
 
-[node name="stateMachaine" parent="." node_paths=PackedStringArray("defaultState") instance=ExtResource("25_d51dp")]
+[node name="stateMachaine" parent="." node_paths=PackedStringArray("defaultState", "animations") instance=ExtResource("25_d51dp")]
 defaultState = NodePath("playerStateIdle")
+animations = NodePath("../animations")
 
 [node name="playerStateIdle" type="Node" parent="stateMachaine"]
 script = ExtResource("25_otp83")
 
+[node name="playerStateIdleCrouch" type="Node" parent="stateMachaine"]
+script = ExtResource("33_8qgv6")
+
+[node name="playerStateWalk" type="Node" parent="stateMachaine"]
+script = ExtResource("27_5yq8j")
+
+[node name="playerStateWalkCrouch" type="Node" parent="stateMachaine"]
+script = ExtResource("34_tq2my")
+
 [node name="playerStateRun" type="Node" parent="stateMachaine"]
 script = ExtResource("26_2bgkp")
+
+[node name="playerStateJumpUp" type="Node" parent="stateMachaine"]
+script = ExtResource("28_tnscq")
+
+[node name="playerStateJumpTop" type="Node" parent="stateMachaine"]
+script = ExtResource("29_qyvmb")
+
+[node name="playerStateJumpDown" type="Node" parent="stateMachaine" node_paths=PackedStringArray("rayCastStuckOnWall")]
+script = ExtResource("30_0jao4")
+rayCastStuckOnWall = NodePath("../../rayCastStuckOnWall")
+
+[node name="playerStateAirSpin" type="Node" parent="stateMachaine" node_paths=PackedStringArray("rayCastStuckOnWall")]
+script = ExtResource("32_1bgex")
+rayCastStuckOnWall = NodePath("../../rayCastStuckOnWall")
+
+[node name="playerStateLand" type="Node" parent="stateMachaine"]
+script = ExtResource("31_knu8u")
+
+[node name="playerStateWallLand" type="Node" parent="stateMachaine" node_paths=PackedStringArray("rayCastStuckOnWall", "timerRayCastStuckOnWall")]
+script = ExtResource("35_06wrd")
+rayCastStuckOnWall = NodePath("../../rayCastStuckOnWall")
+timerRayCastStuckOnWall = NodePath("../../rayCastStuckOnWall/timerRayCastStuckOnWall")
+
+[connection signal="animation_finished" from="animations" to="stateMachaine" method="_on_animations_animation_finished"]

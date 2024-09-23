@@ -9,3 +9,6 @@ func start():
 
 func end():
 	pass
+
+func onAnimationFinish(_animationName:String):
+	pass
