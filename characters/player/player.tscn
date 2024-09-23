@@ -1196,10 +1196,9 @@ script = ExtResource("1_rlrbm")
 
 [node name="animations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_toh0h")
-animation = &"wallLand"
+animation = &"idle"
 autoplay = "idle"
-frame = 5
-frame_progress = 1.0
+frame_progress = 0.902796
 
 [node name="bodyCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_887x0")
