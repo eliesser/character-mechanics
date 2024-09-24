@@ -7,10 +7,10 @@ func onPhysicsProcess(delta: float) -> void:
 	player.playAnimation(player.animation.jumpDown)
 	
 	if player.is_on_floor() and player.velocity.y == 0:
-		if player.velocity.x == 0:
-			stateMachine.changeTo(player.states.land)
-		else:
+		if player.velocity.x != 0:
 			stateMachine.changeTo(player.states.run)
+		else:
+			stateMachine.changeTo(player.states.idle)
 	elif rayCastStuckOnWall.is_colliding():
 		if rayCastStuckOnWall.get_collider().is_in_group("groupWallLand"):
 			stateMachine.changeTo(player.states.wallLand)

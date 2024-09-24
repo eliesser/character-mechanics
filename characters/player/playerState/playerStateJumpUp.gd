@@ -8,7 +8,7 @@ func onPhysicsProcess(delta: float) -> void:
 		player.velocity.y = player.JUMP_VELOCITY
 	elif player.velocity.y > 0:
 		player.countJump += 1
-		stateMachine.changeTo(player.states.jumpTop)
+		stateMachine.changeTo(player.states.jumpDown)
 	
 	setGravity(delta)
 	

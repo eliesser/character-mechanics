@@ -1,9 +1,9 @@
-[gd_scene load_steps=189 format=3 uid="uid://diurwl1k4677h"]
+[gd_scene load_steps=192 format=3 uid="uid://diurwl1k4677h"]
 
 [ext_resource type="Texture2D" uid="uid://dmvgc0mnx7bwm" path="res://assets/character/idle.png" id="1_7sc06"]
 [ext_resource type="Script" path="res://characters/player/player.gd" id="1_rlrbm"]
 [ext_resource type="Texture2D" uid="uid://dp0kkxb34b3cl" path="res://assets/character/run.png" id="2_67lr7"]
-[ext_resource type="Texture2D" uid="uid://b2rcn2ilc7mem" path="res://assets/character/jump.png" id="4_kewjd"]
+[ext_resource type="Texture2D" uid="uid://w7shnsxvc2b5" path="res://assets/character/jump.png" id="4_kewjd"]
 [ext_resource type="Texture2D" uid="uid://csr1vbgo27fsy" path="res://assets/character/wallLand.png" id="5_e8mpj"]
 [ext_resource type="Texture2D" uid="uid://b4ryrgy2fcvoe" path="res://assets/character/land.png" id="6_6o2qs"]
 [ext_resource type="Texture2D" uid="uid://lmlohq4ve40q" path="res://assets/character/wallSlide.png" id="7_iv35j"]
@@ -28,9 +28,7 @@
 [ext_resource type="Script" path="res://characters/player/playerState/playerStateRun.gd" id="26_2bgkp"]
 [ext_resource type="Script" path="res://characters/player/playerState/playerStateWalk.gd" id="27_5yq8j"]
 [ext_resource type="Script" path="res://characters/player/playerState/playerStateJumpUp.gd" id="28_tnscq"]
-[ext_resource type="Script" path="res://characters/player/playerState/playerStateJumpTop.gd" id="29_qyvmb"]
 [ext_resource type="Script" path="res://characters/player/playerState/playerStateJumpDown.gd" id="30_0jao4"]
-[ext_resource type="Script" path="res://characters/player/playerState/playerStateLand.gd" id="31_knu8u"]
 [ext_resource type="Script" path="res://characters/player/playerState/playerStateAirSpin.gd" id="32_1bgex"]
 [ext_resource type="Script" path="res://characters/player/playerState/playerStateIdleCrouch.gd" id="33_8qgv6"]
 [ext_resource type="Script" path="res://characters/player/playerState/playerStateWalkCrouch.gd" id="34_tq2my"]
@@ -322,17 +320,36 @@ region = Rect2(288, 0, 48, 48)
 atlas = ExtResource("17_j2vqq")
 region = Rect2(336, 0, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1klew"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_dtmxd"]
 atlas = ExtResource("4_kewjd")
-region = Rect2(96, 0, 48, 48)
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5wrf0"]
+atlas = ExtResource("4_kewjd")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f56kj"]
+atlas = ExtResource("4_kewjd")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_53hrp"]
+load_path = "res://.godot/imported/jump.png-cb88698f54bfa7d3c06439a4f7a52c50.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2t62i"]
+atlas = SubResource("CompressedTexture2D_53hrp")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_87p7s"]
+atlas = ExtResource("4_kewjd")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vosgg"]
 atlas = ExtResource("4_kewjd")
 region = Rect2(48, 0, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_65wtc"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_bo8k2"]
 atlas = ExtResource("4_kewjd")
-region = Rect2(0, 0, 48, 48)
+region = Rect2(96, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_giosf"]
 atlas = ExtResource("6_6o2qs")
@@ -901,7 +918,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1klew")
+"texture": SubResource("AtlasTexture_dtmxd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5wrf0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f56kj")
 }],
 "loop": false,
 "name": &"jumpDown",
@@ -917,7 +940,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_65wtc")
+"texture": SubResource("AtlasTexture_87p7s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vosgg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bo8k2")
 }],
 "loop": false,
 "name": &"jumpUp",
@@ -1209,7 +1238,7 @@ script = ExtResource("1_rlrbm")
 
 [node name="animations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_toh0h")
-animation = &"idle"
+animation = &"jumpDown"
 autoplay = "idle"
 
 [node name="bodyCollision" type="CollisionShape2D" parent="."]
@@ -1248,9 +1277,6 @@ script = ExtResource("26_2bgkp")
 [node name="playerStateJumpUp" type="Node" parent="stateMachaine"]
 script = ExtResource("28_tnscq")
 
-[node name="playerStateJumpTop" type="Node" parent="stateMachaine"]
-script = ExtResource("29_qyvmb")
-
 [node name="playerStateJumpDown" type="Node" parent="stateMachaine" node_paths=PackedStringArray("rayCastStuckOnWall")]
 script = ExtResource("30_0jao4")
 rayCastStuckOnWall = NodePath("../../rayCastStuckOnWall")
@@ -1258,9 +1284,6 @@ rayCastStuckOnWall = NodePath("../../rayCastStuckOnWall")
 [node name="playerStateAirSpin" type="Node" parent="stateMachaine" node_paths=PackedStringArray("rayCastStuckOnWall")]
 script = ExtResource("32_1bgex")
 rayCastStuckOnWall = NodePath("../../rayCastStuckOnWall")
-
-[node name="playerStateLand" type="Node" parent="stateMachaine"]
-script = ExtResource("31_knu8u")
 
 [node name="playerStateWallLand" type="Node" parent="stateMachaine" node_paths=PackedStringArray("rayCastStuckOnWall", "timerRayCastStuckOnWall")]
 script = ExtResource("35_06wrd")
